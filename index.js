@@ -4,7 +4,7 @@ var api_url = "http://api.tumblr.com/v2/blog/";
 
 function Tumblr(user,key){
 	this.key = key;
-	this.path = api_url + user + '/';
+	this.path = api_url + user + '.tumblr.com' + '/';
 }
 
 function urlOptions(o){

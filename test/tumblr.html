@@ -9,7 +9,7 @@
 	<script src="../build/build.js"></script>
 	<script>
 		var Tumblr = require('tumblr'),
-			tumblr = new Tumblr('my.tumblr.com','tol2asdf3HaQgNASFaAaC1twwk8UxadsfSDFaPejTosWCMYDbeLfK');
+			tumblr = new Tumblr('user','<api key>');
 		
 		function show(response){
 			document.getElementById('tumblr').innerHTML = JSON.stringify(response,null,2);
