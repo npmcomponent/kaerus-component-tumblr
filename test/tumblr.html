@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<title>Tumblr test</title>
+</head>
+<body>
+	<div id="tumblr"></div>
+
+	<script src="../build/build.js"></script>
+	<script>
+		var Tumblr = require('tumblr'),
+			tumblr = new Tumblr('my.tumblr.com','tol2asdf3HaQgNASFaAaC1twwk8UxadsfSDFaPejTosWCMYDbeLfK');
+		
+		function show(response){
+			document.getElementById('tumblr').innerHTML = JSON.stringify(response,null,2);
+		}	
+
+		tumblr.get('posts',{limit:5})
+			.then(function(response){
+				show(response);
+			},function(error){
+				show(error);
+			}
+		);
+
+	</script>
+</body>
+</html>
