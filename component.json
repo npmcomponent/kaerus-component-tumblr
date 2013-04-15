@@ -6,5 +6,6 @@
     "scripts": ["index.js"],
     "dependencies":{
         "kaerus-component/ajax":"*"
-    }
+    },
+    "license": "Apache2_0"
 }
