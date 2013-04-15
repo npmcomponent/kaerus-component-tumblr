@@ -1,11 +1,11 @@
 {  
     "name": "tumblr",
-    "version": "0.1.0",
+    "version": "0.1.5",
     "description": "Tumblr",
     "repo": "kaerus-component/tumblr",
-    "scripts": [
-    "index.js"
-    ],
+    "scripts": ["index.js"],
+    "paths":["plugins"],
+    "local":["posts"],
     "dependencies":{
         "kaerus-component/ajax":"*"
     }

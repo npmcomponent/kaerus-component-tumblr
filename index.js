@@ -2,33 +2,37 @@ var ajax = require('ajax');
 
 var api_url = "http://api.tumblr.com/v2/blog/";
 
+
 function Tumblr(user,key){
-	this.key = key;
+
 	this.path = api_url + user + '.tumblr.com' + '/';
+	this.key = key;
+
+	/* initialize plugins */
+	for(var i = 0; Tumblr.prototype.plugin[i]; i++ )
+		Tumblr.prototype.plugin[i].apply(this);
 }
 
-function urlOptions(o){
-    if(typeof o !== 'object') return '';
+Tumblr.prototype.plugin = [];
 
-    return Object.keys(o).reduce(function(a,b,c){
-        c = b + '=' + o[b];
-        return !a ? '?' + c : a + '&' + c;
-    },'');
+Tumblr.prototype.url = function(api,options){
+	if(typeof options === 'object'){
+		options = Object.keys(options).reduce(function(a,b,c){
+        	c = b + '=' + options[b];
+        	return !a ? '&' + c : a + '&' + c;
+    	},'');
+	} 
+	else options = '';
+
+	return this.path+api+'/?api_key='+this.key+options;
 }
 
-Tumblr.prototype = {
-	"get": function(api,options,requestOptions){
-		options = options ? options : {};
-		options.api_key = this.key;
+Tumblr.prototype.get = function(api,options,requestOptions){
+	return ajax.get(this.url(api,options),requestOptions);
+}
 
-		return ajax.get(this.path+api+urlOptions(options),requestOptions);
-	},
-	"post": function(api,data,options,requestOptions){
-		options = options ? options : {};
-		options.api_key = this.key;
-
-		return ajax.post(this.path+api+urlOptions(options),requestOptions,data);
-	}
+Tumblr.prototype.post = function(api,data,options,requestOptions){
+	return ajax.post(this.url(api,options),requestOptions,data);
 }
 
 module.exports = Tumblr;
