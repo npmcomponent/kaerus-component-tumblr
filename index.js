@@ -1,6 +1,7 @@
-var ajax = require('ajax');
-
-var api_url = "http://api.tumblr.com/v2/blog/";
+var ajax = require('ajax'),
+	script = require('script'),
+	promise = require('promise'),
+	api_url = "http://api.tumblr.com/v2/blog/";
 
 
 function Tumblr(user,key){
@@ -27,8 +28,30 @@ Tumblr.prototype.url = function(api,options){
 	return this.path+api+'/?api_key='+this.key+options;
 }
 
+function mergeOptions(target,source){
+    for(var key in source) {
+        target[key] = source[key];
+    }
+    
+    return target;
+}
+
 Tumblr.prototype.get = function(api,options,requestOptions){
-	return ajax.get(this.url(api,options),requestOptions);
+	var ret = new promise();
+
+	options = mergeOptions({jsonp:"tumblrCallback"},options); 
+
+	window[options.jsonp] = function(data){
+		ret.fulfill(data);
+	}	
+
+	script(this.url(api,options),requestOptions).then(function(loaded){
+		/* ok, great */
+	},function(error){
+		ret.reject(error);
+	});
+
+	return ret;
 }
 
 Tumblr.prototype.post = function(api,data,options,requestOptions){
