@@ -37,16 +37,18 @@ function mergeOptions(target,source){
 }
 
 Tumblr.prototype.get = function(api,options,requestOptions){
-	var ret = new promise();
+	var ret = new promise(), loaded;
 
 	options = mergeOptions({jsonp:"tumblrCallback"},options); 
+	requestOptions = mergeOptions({detach:true},requestOptions);
 
 	window[options.jsonp] = function(data){
-		ret.fulfill(data);
+		loaded = data;
 	}	
 
-	script(this.url(api,options),requestOptions).then(function(loaded){
-		/* ok, great */
+	script(this.url(api,options),requestOptions).then(function(){
+		if(loaded) this.attach(loaded);
+		ret.fulfill(this.attached);
 	},function(error){
 		ret.reject(error);
 	});
