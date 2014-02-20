@@ -1,6 +1,6 @@
-var ajax = require('ajax'),
-	script = require('script'),
-	promise = require('promise'),
+var ajax = require('kaerus-component-ajax'),
+	script = require('kaerus-component-script'),
+	promise = require('kaerus-component-promise'),
 	api_url = "http://api.tumblr.com/v2/blog/";
 
 

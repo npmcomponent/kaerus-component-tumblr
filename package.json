@@ -1,0 +1,11 @@
+{
+  "name": "kaerus-component-tumblr",
+  "description": "Tumblr",
+  "version": "0.1.8",
+  "dependencies": {
+    "kaerus-component-ajax": "git://github.com/npmcomponent/kaerus-component-ajax.git",
+    "kaerus-component-script": "git://github.com/npmcomponent/kaerus-component-script.git",
+    "kaerus-component-promise": "git://github.com/npmcomponent/kaerus-component-promise.git"
+  },
+  "license": "Apache2_0"
+}
